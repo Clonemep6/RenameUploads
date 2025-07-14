@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="OCA\RenameUploads\AppInfo\Application" class="OCA\RenameUploads\AppInfo\Application" />
+
+        <service id="OCA\RenameUploads\Listener\FileCreatedListener" class="OCA\RenameUploads\Listener\FileCreatedListener">
+            <arg type="service" id="OCP\BackgroundJob\IJobList"/>
+            <arg type="service" id="Psr\Log\LoggerInterface"/>
+            <tag name="event_listener" event="OCP\Files\Events\Node\FileCreatedEvent" />
+            <tag name="event_listener" event="OCP\Files\Events\Node\FileWrittenEvent" />
+        </service>
+
+        <service id="OCA\RenameUploads\Service\RenameService" class="OCA\RenameUploads\Service\RenameService">
+            <arg type="service" id="Psr\Log\LoggerInterface"/>
+            <arg type="service" id="OCP\ITagManager"/>
+            <arg type="service" id="OCP\IUserSession"/>
+        </service>
+
+        <service id="OCA\RenameUploads\BackgroundJobs\DeferredRenameQueueJob" class="OCA\RenameUploads\BackgroundJobs\DeferredRenameQueueJob">
+             <arg type="service" id="OCP\BackgroundJob\IJobList"/>
+             <arg type="service" id="Psr\Log\LoggerInterface"/>
+             <arg type="service" id="OCP\Files\IRootFolder"/>
+             <arg type="service" id="OCP\ITagManager"/>
+        </service>
+
+        <service id="OCA\RenameUploads\BackgroundJobs\RenameFileJob" class="OCA\RenameUploads\BackgroundJobs\RenameFileJob">
+            <arg type="service" id="OCP\Files\IRootFolder"/>
+            <arg type="service" id="Psr\Log\LoggerInterface"/>
+            <arg type="service" id="OCA\RenameUploads\Service\RenameService"/>
+            <arg type="service" id="OCP\AppFramework\Utility\ITimeFactory"/>
+        </service>
+    </services>
+</container>

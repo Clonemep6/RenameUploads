@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<info>
+  <id>renameuploads</id>
+  <name>Rename Uploads</name>
+  <summary>Automatically renames uploaded files tagged with "needs_rename"</summary>
+  <description>
+    This app automatically renames uploaded files based on their modification timestamp
+    if they are tagged with "needs_rename".
+  </description>
+  <version>1.0.0</version>
+  <licence>agpl</licence>
+  <author>Caiden Brown</author>
+  <namespace>RenameUploads</namespace>
+  <category>files</category>
+  <default_enable>true</default_enable>
+  <bootstrap>OCA\RenameUploads\AppInfo\Application</bootstrap>
+  <dependencies>
+    <nextcloud min-version="29" max-version="40" />
+  </dependencies>
+</info>
